@@ -1,0 +1,261 @@
+---
+import '../styles/global.css';
+import myPhoto from '../assets/photo.jpg';
+import pushpinIcon from '../assets/pushpin.svg';
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Majito <3</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <main class="page">
+      <div class="background-glow">
+        <div class="blob one"></div>
+        <div class="blob two"></div>
+      </div>
+      <div class="floating-hearts" aria-hidden="true">
+        <span>💖</span>
+        <span>💜</span>
+        <span>🌷</span>
+        <span>💗</span>
+        <span>✨</span>
+        <span>💜</span>
+      </div>
+      <section class="scene">
+        <div class="flowers" aria-hidden="true">
+          <div class="flower tulip f1">
+            <div class="stem"></div>
+            <div class="leaf left"></div>
+            <div class="leaf right"></div>
+            <div class="bloom">
+              <div class="petal left"></div>
+              <div class="petal center"></div>
+              <div class="petal right"></div>
+            </div>
+          </div>
+          <div class="flower rose f2">
+            <div class="stem"></div>
+            <div class="leaf left"></div>
+            <div class="leaf right"></div>
+            <div class="bloom">
+              <div class="petal p1"></div>
+              <div class="petal p2"></div>
+              <div class="petal p3"></div>
+              <div class="petal p4"></div>
+              <div class="petal p5"></div>
+            </div>
+          </div>
+          <div class="flower tulip f3">
+            <div class="stem"></div>
+            <div class="leaf left"></div>
+            <div class="leaf right"></div>
+            <div class="bloom">
+              <div class="petal left"></div>
+              <div class="petal center"></div>
+              <div class="petal right"></div>
+            </div>
+          </div>
+          <div class="flower tulip f4">
+            <div class="stem"></div>
+            <div class="leaf left"></div>
+            <div class="leaf right"></div>
+            <div class="bloom">
+              <div class="petal left"></div>
+              <div class="petal center"></div>
+              <div class="petal right"></div>
+            </div>
+          </div>
+          <div class="flower rose f5">
+            <div class="stem"></div>
+            <div class="leaf left"></div>
+            <div class="leaf right"></div>
+            <div class="bloom">
+              <div class="petal p1"></div>
+              <div class="petal p2"></div>
+              <div class="petal p3"></div>
+              <div class="petal p4"></div>
+              <div class="petal p5"></div>
+            </div>
+          </div>
+          <div class="flower tulip f6">
+            <div class="stem"></div>
+            <div class="leaf left"></div>
+            <div class="leaf right"></div>
+            <div class="bloom">
+              <div class="petal left"></div>
+              <div class="petal center"></div>
+              <div class="petal right"></div>
+            </div>
+          </div>
+        </div>
+        <div class="envelope-wrapper">
+          <button class="envelope-button" id="openEnvelope" aria-label="Abrir carta" type="button">
+            <div class="envelope-shadow"></div>
+            <div class="envelope">
+              <div class="envelope-back"></div>
+              <div class="envelope-front">
+                <div class="flap" id="flap"></div>
+                <div class="pocket"></div>
+                <div class="heart-seal"></div>
+                <div class="envelope-text">
+                  <div class="title" id="envelopeTitle">Para mi amorcito 🥰</div>
+                  <div class="labels">
+                    <div class="label-box" id="envelopeTo">Para: Cargando...</div>
+                    <div class="label-box" id="envelopeFrom">De: Cargando...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </button>
+          <div class="counter" id="loveCounter">
+            Cargando...
+          </div>
+          <div class="hint">Click en el sobre corazon 💌</div>
+        </div>
+      </section>
+    </main>
+
+    <div class="overlay" id="overlay" aria-hidden="true">
+      <div class="petals" aria-hidden="true">
+        <span>🌷</span>
+        <span>🌸</span>
+        <span>💮</span>
+        <span>🌷</span>
+        <span>🌸</span>
+        <span>💮</span>
+      </div>
+      <article class="letter-modal" id="letterModal" role="dialog" aria-modal="true" aria-labelledby="letterTitle">
+        <div class="letter-top">
+          <div class="mini-hearts">
+            <span>💖</span>
+            <span>💜</span>
+            <span>🌷</span>
+          </div>
+          <button class="close-btn" id="closeModal" aria-label="Cerrar carta" type="button">
+            ✕
+          </button>
+        </div>
+        <div class="letter-paper">
+          <div class="letter-content" id="letterContent">
+            <h2 id="letterTitle">Cargando...</h2>
+            <div id="letterParagraphs"></div>
+            <p class="signature" id="letterSignature">Cargando...</p>
+            <div class="photo-container" id="photoContainer">
+              <img src={pushpinIcon.src} alt="Pin" class="pushpin" />
+              <img src={myPhoto.src} alt="Nuestra foto" class="attached-photo" id="attachedPhoto" />
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script>
+      (async function () {
+        try {
+          const response = await fetch('/config.json');
+          const config = await response.json();
+
+          const envTo = document.getElementById('envelopeTo');
+          if (config.envelopeTo && envTo) envTo.textContent = config.envelopeTo;
+          
+          const envFrom = document.getElementById('envelopeFrom');
+          if (config.envelopeFrom && envFrom) envFrom.textContent = config.envelopeFrom;
+          
+          const title = document.getElementById('letterTitle');
+          if (config.title && title) title.textContent = config.title;
+          
+          const sig = document.getElementById('letterSignature');
+          if (config.signature && sig) sig.textContent = config.signature;
+          
+          const paragraphsContainer = document.getElementById('letterParagraphs');
+          if (config.paragraphs && Array.isArray(config.paragraphs) && paragraphsContainer) {
+            config.paragraphs.forEach((pText: string) => {
+              const p = document.createElement('p');
+              p.textContent = pText;
+              paragraphsContainer.appendChild(p);
+            });
+          }
+
+          const relationshipStart = config.relationshipStart || "2026-03-02";
+          const loveCounter = document.getElementById("loveCounter");
+
+          function calculateTimeTogether(startDateString: string) {
+            const startDate = new Date(`${startDateString}T00:00:00`);
+            const now = new Date();
+            const diffMs = now.getTime() - startDate.getTime();
+            const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const months = Math.floor(totalDays / 30.44);
+            const remainingDays = Math.floor(totalDays - months * 30.44);
+
+            if (months > 0) {
+              return `${months} mes${months !== 1 ? "es" : ""} y ${remainingDays} día${remainingDays !== 1 ? "s" : ""}`;
+            }
+            return `${totalDays} día${totalDays !== 1 ? "s" : ""}`;
+          }
+
+          function updateCounter() {
+            const startDate = new Date(`${relationshipStart}T00:00:00`);
+            const formattedDate = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long' }).format(startDate);
+            if (loveCounter) {
+              loveCounter.textContent = `Llevamos juntos ${calculateTimeTogether(relationshipStart)} desde el ${formattedDate} 💖`;
+            }
+          }
+
+          updateCounter();
+        } catch (error) {
+          console.error('Error loading config:', error);
+          const counter = document.getElementById('loveCounter');
+          if (counter) counter.textContent = 'Error al cargar los datos';
+        }
+
+        const overlay = document.getElementById("overlay");
+        const modal = document.getElementById("letterModal");
+        const openEnvelope = document.getElementById("openEnvelope");
+        const closeModal = document.getElementById("closeModal");
+        const flap = document.getElementById("flap");
+
+        function openLetter() {
+          if (flap) flap.style.transform = "rotateX(180deg)";
+          setTimeout(() => {
+            if (overlay) {
+              overlay.classList.add("open");
+              overlay.setAttribute("aria-hidden", "false");
+            }
+            document.body.style.overflow = "hidden";
+          }, 320);
+        }
+
+        function closeLetter() {
+          if (overlay) {
+            overlay.classList.remove("open");
+            overlay.setAttribute("aria-hidden", "true");
+          }
+          document.body.style.overflow = "";
+          setTimeout(() => {
+            if (flap) flap.style.transform = "rotateX(0deg)";
+          }, 180);
+        }
+
+        openEnvelope?.addEventListener("click", openLetter);
+        closeModal?.addEventListener("click", closeLetter);
+
+        overlay?.addEventListener("click", (event) => {
+          if (modal && event.target && !modal.contains(event.target as Node)) {
+            closeLetter();
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && overlay && overlay.classList.contains("open")) {
+            closeLetter();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

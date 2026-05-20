@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Fondo / Solapa trasera -->
+  <path d="M10 25 L10 75 L90 75 L90 25 Z" fill="#f6e9ff" />
+  <path d="M10 25 L50 60 L90 25 Z" fill="#f8c2df" />
+  <!-- Cuerpo del sobre -->
+  <path d="M10 75 L50 45 L90 75 Z" fill="#ffd9ea" />
+  <path d="M10 25 L50 55 L90 25" fill="none" stroke="#dbb3ff" stroke-width="3" stroke-linejoin="round" />
+  <!-- Sello de corazon -->
+  <path d="M50 58 C50 58 45 53 45 49 C45 46.5 47 44.5 49.5 44.5 C50.5 44.5 51.5 45 52 46 C52.5 45 53.5 44.5 54.5 44.5 C57 44.5 59 46.5 59 49 C59 53 50 58 50 58 Z" fill="#ff7eb6" />
+</svg>
